@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informe Técnico-Pedagógico ICFES Saber 11° | I.E. Fundadores Ramón Bueno y José Triana (2024-2026)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+    :root {
+        --primary: #1e3a8a;
+        --primary-light: #3b82f6;
+        --secondary: #0f766e;
+        --danger: #dc2626;
+        --warning: #f59e0b;
+        --success: #16a34a;
+        --dark: #1f2937;
+        --light: #f3f4f6;
+        --gray: #6b7280;
+        --border: #e5e7eb;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--dark);
+        background: var(--light);
+    }
+    
+    header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        color: white;
+        padding: 40px 20px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    header h1 { font-size: 2.2em; margin-bottom: 10px; }
+    header .subtitle { font-size: 1.1em; opacity: 0.95; }
+    header .meta { margin-top: 15px; font-size: 0.9em; opacity: 0.85; }
+    
+    nav {
+        background: white;
+        padding: 15px 20px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    nav a {
+        color: var(--primary);
+        text-decoration: none;
+        padding: 8px 16px;
+        margin: 0 4px;
+        border-radius: 6px;
+        font-weight: 500;
+        display: inline-block;
+        transition: all 0.2s;
+    }
+    
+    nav a:hover { background: var(--primary); color: white; }
+    
+    main { max-width: 1200px; margin: 0 auto; padding: 30px 20px; }
+    
+    section {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+    
+    h2 {
+        color: var(--primary);
+        border-bottom: 3px solid var(--primary-light);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        font-size: 1.8em;
+    }
+    
+    h3 {
+        color: var(--secondary);
+        margin: 25px 0 15px;
+        font-size: 1.3em;
+    }
+    
+    h4 {
+        color: var(--dark);
+        margin: 15px 0 10px;
+        font-size: 1.1em;
+    }
+    
+    p { margin-bottom: 12px; }
+    
+    .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        margin: 20px 0;
+    }
+    
+    .summary-card {
+        background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+        padding: 20px;
+        border-radius: 10px;
+        border-left: 5px solid var(--primary-light);
+        text-align: center;
+    }
+    
+    .summary-card .value {
+        font-size: 2.2em;
+        font-weight: bold;
+        color: var(--primary);
+        display: block;
+        margin: 5px 0;
+    }
+    
+    .summary-card .label {
+        color: var(--gray);
+        font-size: 0.9em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .alert {
+        padding: 18px 22px;
+        border-radius: 8px;
+        margin: 15px 0;
+        border-left: 5px solid;
+    }
+    
+    .alert-danger {
+        background: #fef2f2;
+        border-color: var(--danger);
+        color: #991b1b;
+    }
+    
+    .alert-warning {
+        background: #fffbeb;
+        border-color: var(--warning);
+        color: #92400e;
+    }
+    
+    .alert-success {
+        background: #f0fdf4;
+        border-color: var(--success);
+        color: #166534;
+    }
+    
+    .alert-info {
+        background: #eff6ff;
+        border-color: var(--primary-light);
+        color: #1e40af;
+    }
+    
+    .alert strong { display: block; margin-bottom: 5px; }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    
+    thead {
+        background: var(--primary);
+        color: white;
+    }
+    
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+    }
+    
+    tbody tr:hover { background: #f9fafb; }
+    
+    tbody tr:nth-child(even) { background: #fafafa; }
+    
+    .chart-container {
+        position: relative;
+        margin: 25px 0;
+        padding: 20px;
+        background: #fafbfc;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+    }
+    
+    .chart-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 25px;
+        margin: 25px 0;
+    }
+    
+    .traffic-light {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin: 20px 0;
+    }
+    
+    .traffic-item {
+        flex: 1;
+        min-width: 280px;
+        padding: 20px;
+        border-radius: 10px;
+        color: white;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    
+    .traffic-red { background: linear-gradient(135deg, #dc2626, #b91c1c); }
+    .traffic-yellow { background: linear-gradient(135deg, #f59e0b, #d97706); }
+    .traffic-green { background: linear-gradient(135deg, #16a34a, #15803d); }
+    
+    .traffic-item h4 {
+        color: white;
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        border-bottom: 2px solid rgba(255,255,255,0.3);
+        padding-bottom: 8px;
+    }
+    
+    .traffic-item ul {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .traffic-item li {
+        padding: 6px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .traffic-item li:before {
+        content: "▸ ";
+        font-weight: bold;
+    }
+    
+    .recommendation {
+        background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        padding: 20px;
+        border-radius: 10px;
+        margin: 15px 0;
+        border-left: 5px solid var(--primary-light);
+    }
+    
+    .recommendation h4 {
+        color: var(--primary);
+        margin-bottom: 10px;
+    }
+    
+    .recommendation ul { margin-left: 20px; margin-top: 10px; }
+    .recommendation li { margin-bottom: 8px; }
+    
+    .badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 0.8em;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .badge-danger { background: #fee2e2; color: #991b1b; }
+    .badge-warning { background: #fef3c7; color: #92400e; }
+    .badge-success { background: #dcfce7; color: #166534; }
+    .badge-info { background: #dbeafe; color: #1e40af; }
+    
+    .highlight-box {
+        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        padding: 20px;
+        border-radius: 10px;
+        border-left: 5px solid var(--warning);
+        margin: 20px 0;
+    }
+    
+    .highlight-box strong { color: #92400e; }
+    
+    footer {
+        background: var(--dark);
+        color: white;
+        text-align: center;
+        padding: 30px 20px;
+        margin-top: 40px;
+    }
+    
+    footer p { margin-bottom: 8px; opacity: 0.9; }
+    
+    .progress-bar {
+        background: #e5e7eb;
+        border-radius: 10px;
+        height: 25px;
+        overflow: hidden;
+        margin: 8px 0;
+        position: relative;
+    }
+    
+    .progress-fill {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 10px;
+        color: white;
+        font-weight: bold;
+        font-size: 0.85em;
+        transition: width 1s ease;
+    }
+    
+    .level-1 { background: linear-gradient(90deg, #dc2626, #ef4444); }
+    .level-2 { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+    .level-3 { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+    .level-4 { background: linear-gradient(90deg, #16a34a, #22c55e); }
+    
+    @media (max-width: 768px) {
+        header h1 { font-size: 1.5em; }
+        section { padding: 20px; }
+        h2 { font-size: 1.4em; }
+        .chart-grid { grid-template-columns: 1fr; }
+    }
+    
+    @media print {
+        nav { display: none; }
+        section { page-break-inside: avoid; box-shadow: none; }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>📊 Informe Técnico-Pedagógico Integral</h1>
+    <div class="subtitle">Análisis Histórico Comparativo Pruebas Saber 11° (2024 - 2026)</div>
+    <div class="meta">
+        <strong>Institución Educativa Fundadores Ramón Bueno y José Triana</strong><br>
+        Código DANE: 125307001524 | Girardot, Cundinamarca | Grupo de Comparación 3
+    </div>
+</header>
+
+<nav>
+    <a href="#resumen">📋 Resumen</a>
+    <a href="#historico">📈 Evolución Histórica</a>
+    <a href="#areas">🎯 Análisis por Áreas</a>
+    <a href="#alertas">🚨 Semáforo de Alertas</a>
+    <a href="#nee">🧩 Población NEE</a>
+    <a href="#ruta">🗺️ Hoja de Ruta</a>
+    <a href="#directiva">🏢 Gestión Directiva</a>
+</nav>
+
+<main>
+
+<!-- RESUMEN EJECUTIVO -->
+<section id="resumen">
+    <h2>📋 Resumen Ejecutivo</h2>
+    <p>Este informe integra los resultados individuales de los últimos tres ciclos (2024, 2025, 2026) para ofrecer una visión macro de la tendencia institucional. El análisis revela un patrón claro: <strong>la institución está atrapada en un "techo de cristal" alrededor de los 241 puntos</strong>, sin lograr romper la barrera del promedio nacional (253 pts).</p>
+    
+    <div class="summary-grid">
+        <div class="summary-card">
+            <span class="label">Promedio 2026</span>
+            <span class="value">241</span>
+            <span class="label">puntos</span>
+        </div>
+        <div class="summary-card">
+            <span class="label">Promedio Nacional</span>
+            <span class="value">253</span>
+            <span class="label">puntos</span>
+        </div>
+        <div class="summary-card">
+            <span class="label">Brecha</span>
+            <span class="value">-12</span>
+            <span class="label">puntos</span>
+        </div>
+        <div class="summary-card">
+            <span class="label">Estudiantes 2026</span>
+            <span class="value">53</span>
+            <span class="label">presentes</span>
+        </div>
+        <div class="summary-card">
+            <span class="label">Asistencia</span>
+            <span class="value">96.3%</span>
+            <span class="label">excelente</span>
+        </div>
+        <div class="summary-card">
+            <span class="label">Puntaje Máximo</span>
+            <span class="value">389</span>
+            <span class="label">2026</span>
+        </div>
+    </div>
+    
+    <div class="alert alert-info">
+        <strong>💡 Hallazgo Clave:</strong>
+        Aunque hubo una recuperación en 2026 tras la caída de 2025, la institución lleva al menos 3 años estancada en el mismo promedio. Sin embargo, el puntaje máximo ha subido (de 359 en 2024 a 389 en 2026), lo que demuestra que <strong>existe capacidad instalada para la excelencia</strong>, pero esta no se está masificando.
+    </div>
+</section>
+
+<!-- EVOLUCIÓN HISTÓRICA -->
+<section id="historico">
+    <h2>📈 Evolución Histórica (2024 - 2026)</h2>
+    
+    <h3>Tendencia del Puntaje Global Promedio</h3>
+    <div class="chart-container">
+        <canvas id="chartTendencia" height="100"></canvas>
+    </div>
+    
+    <h3>Comparativo por Áreas (2026 vs Referentes)</h3>
+    <div class="chart-container">
+        <canvas id="chartAreas" height="80"></canvas>
+    </div>
+    
+    <h3>Análisis de la Tendencia</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Año</th>
+                <th>Estudiantes</th>
+                <th>Promedio Global</th>
+                <th>Máximo</th>
+                <th>Mínimo</th>
+                <th>Tendencia</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>2024</strong></td>
+                <td>71</td>
+                <td>241</td>
+                <td>359</td>
+                <td>136</td>
+                <td><span class="badge badge-info">Base</span></td>
+            </tr>
+            <tr>
+                <td><strong>2025</strong></td>
+                <td>34</td>
+                <td>221</td>
+                <td>300</td>
+                <td>166</td>
+                <td><span class="badge badge-danger">⬇️ Caída -20 pts</span></td>
+            </tr>
+            <tr>
+                <td><strong>2026</strong></td>
+                <td>53</td>
+                <td>241</td>
+                <td>389</td>
+                <td>147</td>
+                <td><span class="badge badge-success">⬆️ Recuperación</span></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="highlight-box">
+        <strong>⚠️ Observación crítica:</strong> La caída de 2025 (-20 pts) y la recuperación de 2026 sugieren alta sensibilidad a factores cohortales (generacionales). La institución necesita estrategias que <strong>estabilicen los resultados independientemente del grupo</strong>, no depender de "estrellas" individuales.
+    </div>
+</section>
+
+<!-- ANÁLISIS POR ÁREAS -->
+<section id="areas">
+    <h2>🎯 Análisis Detallado por Áreas (2026)</h2>
+    
+    <h3>Distribución de Niveles de Desempeño</h3>
+    <div class="chart-grid">
+        <div class="chart-container">
+            <canvas id="chartLectura"></canvas>
+        </div>
+        <div class="chart-container">
+            <canvas id="chartMatematicas"></canvas>
+        </div>
+        <div class="chart-container">
+            <canvas id="chartSociales"></canvas>
+        </div>
+        <div class="chart-container">
+            <canvas id="chartCiencias"></canvas>
+        </div>
+    </div>
+    
+    <h3>Perfil de Competencias - Análisis Radar</h3>
+    <div class="chart-container">
+        <canvas id="chartRadar" height="120"></canvas>
+    </div>
+    
+    <h3>Desglose por Área</h3>
+    
+    <!-- LECTURA CRÍTICA -->
+    <h4>📖 Lectura Crítica - Promedio: 50</h4>
+    <div class="progress-bar"><div class="progress-fill level-1" style="width: 11%;">11%</div></div>
+    <div class="progress-bar"><div class="progress-fill level-2" style="width: 43%;">43%</div></div>
+    <div class="progress-bar"><div class="progress-fill level-3" style="width: 39%;">39%</div></div>
+    <div class="progress-bar"><div class="progress-fill level-4" style="width: 7%;">7%</div></div>
+    <p style="font-size: 0.85em; color: var(--gray); margin-top: 5px;">Nivel 1 → Nivel 2 → Nivel 3 → Nivel 4</p>
+    
+    <div class="alert alert-warning">
+        <strong>Debilidad específica:</strong> El 52% falla en "Reflexionar a partir de un texto y evaluar su contenido" y el 51% en "Comprender cómo se articulan las partes de un texto para darle sentido global".
+    </div>
+    
+    <!-- MATEMÁTICAS -->
+    <h4>🔢 Matemáticas - Promedio: 48</h4>
+    <div class="progress-bar"><div class="progress-fill level-1" style="width: 13%;">13%</div></div>
+    <div class="progress-bar"><div class="progress-fill level-2" style="width: 54%;">54%</div></div>
+    <div class="progress-bar"><div class="progress-fill level-3" style="width: 28%;">28%</div></div>
+    <div class="progress-bar"><div class="progress-fill level-4" style="width: 4%;">4%</div></div>
+    <p style="font-size: 0.85em; color: var(--gray); margin-top: 5px;">Nivel 1 → Nivel 2 → Nivel 3 → Nivel 4</p>
+    
+    <div class="alert alert-danger">
+        <strong>🚨 Punto crítico:</strong> El 68% falla en "Validar procedimientos y estrategias matemáticas". Los estudiantes saben operar, pero no saben justificar por qué una respuesta es correcta. Falla severa en metacognición matemática.
+    </div>
+    
+    <!-- SOCIALES -->
+    <h4>🌍 Sociales y Ciudadanas - Promedio: 46</h4>
+    <div class="progress-bar"><div class="progress-fill level-1" style="width: 41%;">41%</div></div>
+    <div class="progress-bar"><div class="progress-fill level-2" style="width: 33%;">33%</div></div>
+    <div class="progress-bar"><div class="progress-fill level-3" style="width: 26%;">26%</div></div>
+    <div class="progress-bar"><div class="progress-fill level-4" style="width: 0.5%;">0%</div></div>
+    <p style="font-size: 0.85em; color: var(--gray); margin-top: 5px;">Nivel 1 → Nivel 2 → Nivel 3 → Nivel 4</p>
+    
+    <div class="alert alert-danger">
+        <strong>🚨 NODO CRÍTICO SEVERO:</strong> El 41% está en el nivel más bajo (vs 22% ETC y 26% nacional). <strong>Ningún estudiante (0%) alcanzó el Nivel 4.</strong> El 64% falla en "Comprender que los problemas y sus soluciones involucran distintas dimensiones".
+    </div>
+    
+    <!-- CIENCIAS -->
+    <h4>🔬 Ciencias Naturales - Promedio: 48</h4>
+    <div class="progress-bar"><div class="progress-fill level-1" style="width: 20%;">20%</div></div>
+    <div class="progress-bar"><div class="progress-fill level-2" style="width: 57%;">57%</div></div>
+    <div class="progress-bar"><div class="progress-fill level-3" style="width: 24%;">24%</div></div>
+    <div class="progress-bar"><div class="progress-fill level-4" style="width: 0.5%;">0%</div></div>
+    <p style="font-size: 0.85em; color: var(--gray); margin-top: 5px;">Nivel 1 → Nivel 2 → Nivel 3 → Nivel 4</p>
+    
+    <div class="alert alert-danger">
+        <strong>🚨 NODO CRÍTICO:</strong> Igual que en Sociales, <strong>0% en Nivel 4</strong>. El 72% falla en "Identificar características de fenómenos físicos" y el 70% en "Explicar procesos vivos". Dificultad para pasar de la observación superficial a la explicación científica.
+    </div>
+    
+    <!-- INGLÉS -->
+    <h4>🌐 Inglés - Promedio: 51</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Nivel A-</th>
+                <th>Nivel A1</th>
+                <th>Nivel A2</th>
+                <th>Nivel B1</th>
+                <th>Nivel B+</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="badge badge-danger">41%</span></td>
+                <td><span class="badge badge-warning">41%</span></td>
+                <td><span class="badge badge-info">9%</span></td>
+                <td><span class="badge badge-success">9%</span></td>
+                <td><span class="badge badge-danger">0%</span></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-warning">
+        <strong>⚠️ Estancamiento:</strong> El 82% está en niveles básicos (A- y A1). Solo el 9% alcanza B1 (umbral funcional). La metodología actual no genera competencia comunicativa real.
+    </div>
+</section>
+
+<!-- SEMÁFORO DE ALERTAS -->
+<section id="alertas">
+    <h2>🚨 Semáforo de Alertas Estratégicas</h2>
+    
+    <div class="traffic-light">
+        <div class="traffic-item traffic-red">
+            <h4>🔴 ALERTAS ROJAS</h4>
+            <ul>
+                <li>Crisis de Ciudadanía: 41% en Nivel 1 de Sociales</li>
+                <li>Ausencia de Excelencia: 0% Nivel 4 en Ciencias y Sociales</li>
+                <li>Brecha Interna Extrema: 242 pts entre mejor y peor estudiante</li>
+                <li>Estancamiento 3 años en 241 pts globales</li>
+            </ul>
+        </div>
+        
+        <div class="traffic-item traffic-yellow">
+            <h4>🟡 ALERTAS AMARILLAS</h4>
+            <ul>
+                <li>Inglés: 82% en niveles A-/A1</li>
+                <li>Validación Matemática: 68% de error</li>
+                <li>Concentración masiva en Nivel 2 (54% Mate, 57% Ciencias)</li>
+                <li>Sensibilidad cohortal (caída 2025 de -20 pts)</li>
+            </ul>
+        </div>
+        
+        <div class="traffic-item traffic-green">
+            <h4>🟢 FORTALEZAS</h4>
+            <ul>
+                <li>Asistencia 96.3% (excelente retención)</li>
+                <li>Lectura Crítica estable: solo 11% Nivel 1</li>
+                <li>Puntaje máximo creciente: 389 pts en 2026</li>
+                <li>Existencia de "semillas de excelencia"</li>
+            </ul>
+        </div>
+    </div>
+    
+    <h3>Comparativo con Grupos de Referencia (2026)</h3>
+    <div class="chart-container">
+        <canvas id="chartComparativo"></canvas>
+    </div>
+</section>
+
+<!-- POBLACIÓN NEE -->
+<section id="nee">
+    <h2>🧩 Análisis de Población con Posibles NEE</h2>
+    
+    <div class="alert alert-info">
+        <strong>ℹ️ Nota importante:</strong> El reporte ICFES no menciona estudiantes con Necesidades Educativas Especiales ni hace referencia a ajustes razonables. Los resultados están agregados y no permiten aislar el impacto específico de esta población.
+    </div>
+    
+    <h3>Identificación de Población Vulnerable (2026)</h3>
+    <p>Al revisar los puntajes individuales, se identifica un <strong>grupo de aproximadamente 8-10 estudiantes</strong> con puntajes globales entre 130 y 175 puntos:</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Estudiante</th>
+                <th>Lectura</th>
+                <th>Matemáticas</th>
+                <th>Sociales</th>
+                <th>Ciencias</th>
+                <th>Inglés</th>
+                <th>Global</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Johan Stith Vanegas Luna</td>
+                <td>24 (N1)</td>
+                <td>28 (N1)</td>
+                <td>32 (N1)</td>
+                <td>33 (N1)</td>
+                <td>31 (A-)</td>
+                <td><strong>147</strong></td>
+            </tr>
+            <tr>
+                <td>Melany Shirley Meneses Paez</td>
+                <td>27 (N1)</td>
+                <td>32 (N1)</td>
+                <td>34 (N1)</td>
+                <td>42 (N2)</td>
+                <td>37 (A-)</td>
+                <td><strong>170</strong></td>
+            </tr>
+            <tr>
+                <td>Jesus David Tique Prada</td>
+                <td>37 (N2)</td>
+                <td>25 (N1)</td>
+                <td>34 (N1)</td>
+                <td>39 (N1)</td>
+                <td>31 (A-)</td>
+                <td><strong>168</strong></td>
+            </tr>
+            <tr>
+                <td>Yennyfer Natalia Sanchez Peña</td>
+                <td>35 (N1)</td>
+                <td>33 (N1)</td>
+                <td>29 (N1)</td>
+                <td>34 (N1)</td>
+                <td>42 (A-)</td>
+                <td><strong>167</strong></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="highlight-box">
+        <strong>⚠️ Elementos a tener en cuenta:</strong>
+        <ul style="margin-left: 20px; margin-top: 10px;">
+            <li>Puntajes tan bajos en todas las áreas sugieren posibles <strong>dificultades cognitivas, de atención o aprendizaje no abordadas</strong>.</li>
+            <li>Si no hay NEE diagnosticadas, estos estudiantes presentan <strong>"desconexión escolar" severa</strong> (responden al azar o en blanco).</li>
+            <li>Este grupo "jala" el promedio institucional hacia abajo.</li>
+            <li>Sin <strong>PIAR (Plan Individual de Ajustes Razonables)</strong>, sus resultados seguirán siendo injustamente castigados en pruebas estandarizadas.</li>
+        </ul>
+    </div>
+    
+    <h3>Acciones Requeridas</h3>
+    <div class="recommendation">
+        <h4>🔍 Protocolo de Detección y Atención</h4>
+        <ul>
+            <li>Cruce de información con SIMAT y registros internos para identificar estudiantes con PIAR activo.</li>
+            <li>Aplicar baterías de descarte (cognitivas, socioemocionales) a estudiantes con puntajes &lt; 170.</li>
+            <li>Revisar actas de aplicación ICFES para verificar si se solicitaron ajustes razonables.</li>
+            <li>Activar PIAR ante la Secretaría de Educación si se detectan NEE no atendidas.</li>
+            <li>Realizar análisis cualitativo individual de los resultados de estos estudiantes.</li>
+        </ul>
+    </div>
+</section>
+
+<!-- HOJA DE RUTA -->
+<section id="ruta">
+    <h2>🗺️ Hoja de Ruta Minuciosa para la Mejora</h2>
+    
+    <h3>A. Reestructuración Curricular (El "Qué" enseñar)</h3>
+    
+    <div class="recommendation">
+        <h4>1. Transversalidad de la Evaluación y la Argumentación</h4>
+        <p>El 52% de error en "Reflexionar y evaluar" en Lectura es el cuello de botella de Sociales y Ciencias.</p>
+        <ul>
+            <li>Crear un proyecto transversal donde <strong>todas las áreas</strong> (incluyendo Matemáticas y Educación Física) exijan a los estudiantes <strong>justificar sus respuestas usando evidencia</strong>, no solo dar la respuesta final.</li>
+            <li>Implementar rúbricas de argumentación en el 30% de las evaluaciones internas.</li>
+        </ul>
+    </div>
+    
+    <div class="recommendation">
+        <h4>2. Ajuste Urgente de Malla en Sociales</h4>
+        <ul>
+            <li>Pasar de la historia memorística al <strong>análisis de casos, debate de problemas sociales y comprensión del entorno territorial</strong> de Girardot.</li>
+            <li>Incorporar competencias de multidimensionalidad: analizar problemas desde lo político, económico, social y cultural simultáneamente.</li>
+            <li>Trabajar explícitamente las 6 competencias con mayor error identificadas en el ICFES.</li>
+        </ul>
+    </div>
+    
+    <div class="recommendation">
+        <h4>3. Matemáticas Basadas en la Justificación</h4>
+        <ul>
+            <li>Prohibir en evaluaciones internas preguntas donde solo se califique el resultado numérico.</li>
+            <li>El 40% de la nota debe ser la <strong>validación del procedimiento</strong>: ¿Por qué usaste esta fórmula? ¿Cómo sabes que tu respuesta es lógica?</li>
+            <li>Incorporar problemas de "encuentra el error" para desarrollar pensamiento crítico matemático.</li>
+        </ul>
+    </div>
+    
+    <h3>B. Atención a la Heterogeneidad (El "Cómo" enseñar)</h3>
+    
+    <div class="recommendation">
+        <h4>4. Implementación del Aula Diferenciada (DUA)</h4>
+        <p>Dado que la brecha es de 242 puntos, el docente no puede dar una sola clase.</p>
+        <ul>
+            <li>Aplicar <strong>Diseño Universal para el Aprendizaje (DUA)</strong>.</li>
+            <li>Ofrecer tres niveles de complejidad en las actividades (Básica, Intermedia, Reto) para que cada estudiante trabaje en su Zona de Desarrollo Próximo.</li>
+            <li>Usar múltiples formas de representación, acción y motivación.</li>
+        </ul>
+    </div>
+    
+    <div class="recommendation">
+        <h4>5. Mentoría de Pares (Apalancamiento de la Excelencia)</h4>
+        <ul>
+            <li>Usar a los estudiantes que están en Nivel 3 y 4 (como los que sacaron 300+ puntos) como tutores de los estudiantes en Nivel 1 y 2.</li>
+            <li>Esto refuerza el conocimiento del tutor y ayuda al tutorado en un lenguaje más cercano.</li>
+            <li>Formalizar el programa con horas de servicio escolar y reconocimiento.</li>
+        </ul>
+    </div>
+    
+    <h3>C. Estrategias de Simulacro y Clima</h3>
+    
+    <div class="recommendation">
+        <h4>6. Simulacros con Retroalimentación Cualitativa</h4>
+        <ul>
+            <li>No basta con hacer simulacros y entregar una hoja con "Puntaje: 45".</li>
+            <li>Los docentes deben tomar las preguntas de los simulacros y hacer <strong>"clínicas de error" en clase</strong>, analizando por qué la opción B era una trampa y por qué la C era la correcta.</li>
+            <li>Realizar al menos 4 simulacros anuales con análisis posterior por competencia.</li>
+        </ul>
+    </div>
+    
+    <h3>D. Revolución del Inglés</h3>
+    
+    <div class="recommendation">
+        <h4>7. Cambio de Enfoque Comunicativo</h4>
+        <ul>
+            <li>El 82% en niveles básicos indica que se enseña inglés como materia teórica (gramática) y no como herramienta.</li>
+            <li>Integrar 1 hora semanal de <strong>"Inglés Técnico o Comunicativo"</strong> usando plataformas digitales, canciones, o proyectos donde el inglés sea el medio para resolver un problema.</li>
+            <li>Establecer meta mínima: 50% de estudiantes en A2 para 2027.</li>
+        </ul>
+    </div>
+</section>
+
+<!-- GESTIÓN DIRECTIVA -->
+<section id="directiva">
+    <h2>🏢 Elementos Clave para la Gestión Directiva</h2>
+    
+    <p>Para que el Rector y el Consejo Académico lideren este cambio, deben tener en cuenta los siguientes elementos estratégicos:</p>
+    
+    <div class="chart-container">
+        <canvas id="chartDirectiva" height="80"></canvas>
+    </div>
+    
+    <h3>1. Indicadores de Gestión Docente</h3>
+    <div class="alert alert-info">
+        Evaluar a los docentes <strong>no solo por el cumplimiento de temas</strong>, sino por el <strong>valor agregado</strong>. Si un docente recibe un grupo en Nivel 1 y lo sube a Nivel 2, es tan meritorio como el que mantiene a un grupo en Nivel 4.
+    </div>
+    
+    <h3>2. Comunidades de Aprendizaje Docente</h3>
+    <div class="alert alert-info">
+        Romper el aislamiento. El profesor de Matemáticas y el de Ciencias deben sentarse a analizar juntos las competencias de "Modelación" y "Validación", ya que los estudiantes fallan en ambas por la misma raíz cognitiva.
+    </div>
+    
+    <h3>3. Focalización de Recursos</h3>
+    <div class="alert alert-info">
+        Si el colegio recibe recursos de gratuidad o proyectos (ej. Todos a Aprender), destinarlos <strong>exclusivamente</strong> a:
+        <ul style="margin-left: 20px; margin-top: 10px;">
+            <li>Talleres de pensamiento crítico para estudiantes de Nivel 2 (el 50% del colegio) para empujarlos al Nivel 3.</li>
+            <li>Nivelación lúdica para estudiantes de Nivel 1.</li>
+            <li>Programas de enriquecimiento para estudiantes de Nivel 4 (para que no se pierdan).</li>
+        </ul>
+    </div>
+    
+    <h3>4. Socialización con Padres de Familia</h3>
+    <div class="alert alert-info">
+        Los padres deben entender que un estudiante con 147 puntos no es "el malo del salón", sino un estudiante con una barrera de aprendizaje que requiere <strong>intervención conjunta (familia-orientación-docente)</strong>.
+    </div>
+    
+    <h3>5. Elementos Transversales Críticos</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Elemento</th>
+                <th>Estado Actual</th>
+                <th>Acción Requerida</th>
+                <th>Prioridad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>PEI actualizado</td>
+                <td>Requiere revisión</td>
+                <td>Incorporar enfoque por competencias de orden superior</td>
+                <td><span class="badge badge-danger">Alta</span></td>
+            </tr>
+            <tr>
+                <td>Sistema de evaluación interna</td>
+                <td>Probablemente memorístico</td>
+                <td>Alinear con formato ICFES (preguntas de validación y argumentación)</td>
+                <td><span class="badge badge-danger">Alta</span></td>
+            </tr>
+            <tr>
+                <td>Atención a NEE</td>
+                <td>No documentada</td>
+                <td>Protocolo de detección y PIAR</td>
+                <td><span class="badge badge-danger">Alta</span></td>
+            </tr>
+            <tr>
+                <td>Formación docente continua</td>
+                <td>Desconocido</td>
+                <td>Capacitación en DUA, evaluación formativa y pensamiento crítico</td>
+                <td><span class="badge badge-warning">Media</span></td>
+            </tr>
+            <tr>
+                <td>Clima escolar</td>
+                <td>No medido</td>
+                <td>Aplicar instrumentos internos de clima y motivación</td>
+                <td><span class="badge badge-warning">Media</span></td>
+            </tr>
+            <tr>
+                <td>Uso de TIC</td>
+                <td>Desconocido</td>
+                <td>Integrar plataformas de simulación y retroalimentación</td>
+                <td><span class="badge badge-info">Baja</span></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="highlight-box">
+        <strong>🎯 Conclusión del Analista:</strong>
+        La Institución Educativa Fundadores Ramón Bueno y José Triana no sufre de un problema de deserción ni de falta de compromiso; sufre de un <strong>estancamiento pedagógico en competencias de orden superior</strong>. Tiene el talento (evidenciado en sus estudiantes punta) y la asistencia. El reto de los próximos dos años no es "enseñar más contenidos", sino <strong>cambiar la forma en que se evalúa y se piensa en el aula</strong>, pasando de la repetición a la argumentación, y atendiendo con dignidad y ciencia a su población más vulnerable.
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <p><strong>Informe Técnico-Pedagógico Integral</strong></p>
+    <p>Institución Educativa Fundadores Ramón Bueno y José Triana</p>
+    <p>Análisis basado en resultados ICFES Saber 11° (2024, 2025, 2026)</p>
+    <p style="margin-top: 15px; font-size: 0.85em; opacity: 0.7;">Documento generado el 29 de octubre de 2026 | Uso institucional</p>
+</footer>
+
+<script>
+    // Colores comunes
+    const colors = {
+        primary: '#1e3a8a',
+        primaryLight: '#3b82f6',
+        danger: '#dc2626',
+        warning: '#f59e0b',
+        success: '#16a34a',
+        gray: '#6b7280'
+    };
+    
+    // 1. Gráfica de Tendencia
+    new Chart(document.getElementById('chartTendencia'), {
+        type: 'line',
+        data: {
+            labels: ['2024', '2025', '2026'],
+            datasets: [
+                {
+                    label: 'I.E. Fundadores',
+                    data: [241, 221, 241],
+                    borderColor: colors.primary,
+                    backgroundColor: 'rgba(30, 58, 138, 0.1)',
+                    tension: 0.3,
+                    fill: true,
+                    pointRadius: 6,
+                    pointBackgroundColor: colors.primary,
+                    borderWidth: 3
+                },
+                {
+                    label: 'Colombia',
+                    data: [253, 253, 253],
+                    borderColor: colors.success,
+                    borderDash: [5, 5],
+                    tension: 0,
+                    pointRadius: 0,
+                    borderWidth: 2
+                },
+                {
+                    label: 'ETC Girardot',
+                    data: [260, 260, 260],
+                    borderColor: colors.warning,
+                    borderDash: [5, 5],
+                    tension: 0,
+                    pointRadius: 0,
+                    borderWidth: 2
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Evolución del Puntaje Global (2024-2026)',
+                    font: { size: 16, weight: 'bold' }
+                },
+                legend: { position: 'bottom' }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    min: 200,
+                    max: 280,
+                    title: { display: true, text: 'Puntaje Global' }
+                }
+            }
+        }
+    });
+    
+    // 2. Gráfica de Áreas
+    new Chart(document.getElementById('chartAreas'), {
+        type: 'bar',
+        data: {
+            labels: ['Lectura Crítica', 'Matemáticas', 'Sociales', 'Ciencias', 'Inglés'],
+            datasets: [
+                {
+                    label: 'I.E. Fundadores (2026)',
+                    data: [50, 48, 46, 48, 51],
+                    backgroundColor: colors.primary
+                },
+                {
+                    label: 'Colombia',
+                    data: [53, 50, 49, 50, 52],
+                    backgroundColor: colors.success
+                },
+                {
+                    label: 'ETC Girardot',
+                    data: [54, 51, 50, 51, 56],
+                    backgroundColor: colors.warning
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Comparativo de Promedios por Área (2026)',
+                    font: { size: 16, weight: 'bold' }
+                },
+                legend: { position: 'bottom' }
+            },
+            scales: {
+                y: { beginAtZero: true, max: 60 }
+            }
+        }
+    });
+    
+    // 3. Gráficas de Niveles por Área
+    function createLevelChart(canvasId, title, data) {
+        new Chart(document.getElementById(canvasId), {
+            type: 'bar',
+            data: {
+                labels: ['Nivel 1', 'Nivel 2', 'Nivel 3', 'Nivel 4'],
+                datasets: [{
+                    label: 'I.E. Fundadores',
+                    data: data,
+                    backgroundColor: [colors.danger, colors.warning, colors.primaryLight, colors.success]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: { display: true, text: title, font: { size: 14, weight: 'bold' } },
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true, max: 60, title: { display: true, text: '% Estudiantes' } }
+                }
+            }
+        });
+    }
+    
+    createLevelChart('chartLectura', 'Lectura Crítica - Niveles', [11, 43, 39, 7]);
+    createLevelChart('chartMatematicas', 'Matemáticas - Niveles', [13, 54, 28, 4]);
+    createLevelChart('chartSociales', 'Sociales y Ciudadanas - Niveles', [41, 33, 26, 0]);
+    createLevelChart('chartCiencias', 'Ciencias Naturales - Niveles', [20, 57, 24, 0]);
+    
+    // 4. Gráfica Radar
+    new Chart(document.getElementById('chartRadar'), {
+        type: 'radar',
+        data: {
+            labels: ['Lectura Crítica', 'Matemáticas', 'Sociales', 'Ciencias', 'Inglés'],
+            datasets: [
+                {
+                    label: 'I.E. Fundadores',
+                    data: [50, 48, 46, 48, 51],
+                    backgroundColor: 'rgba(30, 58, 138, 0.2)',
+                    borderColor: colors.primary,
+                    borderWidth: 2,
+                    pointBackgroundColor: colors.primary
+                },
+                {
+                    label: 'Colombia',
+                    data: [53, 50, 49, 50, 52],
+                    backgroundColor: 'rgba(22, 163, 74, 0.1)',
+                    borderColor: colors.success,
+                    borderWidth: 2,
+                    pointBackgroundColor: colors.success
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Perfil de Competencias vs Nacional',
+                    font: { size: 16, weight: 'bold' }
+                },
+                legend: { position: 'bottom' }
+            },
+            scales: {
+                r: {
+                    beginAtZero: false,
+                    min: 40,
+                    max: 60
+                }
+            }
+        }
+    });
+    
+    // 5. Comparativo con GC
+    new Chart(document.getElementById('chartComparativo'), {
+        type: 'bar',
+        data: {
+            labels: ['GC 2', 'I.E. Fundadores', 'GC 3', 'GC 4', 'ETC', 'Colombia'],
+            datasets: [{
+                label: 'Puntaje Global 2026',
+                data: [239, 241, 258, 320, 260, 253],
+                backgroundColor: [
+                    colors.gray,
+                    colors.primary,
+                    colors.primaryLight,
+                    colors.success,
+                    colors.warning,
+                    colors.success
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            indexAxis: 'y',
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Posición Relativa entre Grupos de Comparación',
+                    font: { size: 16, weight: 'bold' }
+                },
+                legend: { display: false }
+            },
+            scales: {
+                x: { beginAtZero: false, min: 220, max: 340 }
+            }
+        }
+    });
+    
+    // 6. Gráfica de Elementos Directivos
+    new Chart(document.getElementById('chartDirectiva'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Reestructuración Curricular', 'Atención a Heterogeneidad', 'Simulacros y Clima', 'Inglés', 'Gestión NEE'],
+            datasets: [{
+                data: [30, 25, 20, 15, 10],
+                backgroundColor: [
+                    colors.primary,
+                    colors.primaryLight,
+                    colors.warning,
+                    colors.success,
+                    colors.danger
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Distribución del Esfuerzo Institucional Recomendado',
+                    font: { size: 16, weight: 'bold' }
+                },
+                legend: { position: 'bottom' }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
